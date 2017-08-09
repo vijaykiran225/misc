@@ -16,10 +16,22 @@ else:
 
 number = random.randint(0,endValue);
 
-attempts =1;
+try:
+	attempts = int(input("Enter your max attempts "))
+	print("Good luck, you get ",attempts," number of attempts")
+except Exception as e:
+	print("something's not right. so you get only 10 attempts")
+	attempts =10;
+max_attempts=attempts
 found = False;
-while not found:
-	userInput = int(input("Enter your input: "))	
+while (not found) and (attempts >0):
+	if attempts==1:
+		print("your last chance, make it count")
+	try:
+		userInput = int(input("Enter your input: "))
+	except Exception as e:
+		print("enter properly !!")
+		continue
 	if userInput==number:
 		print("found after ",attempts," attempts")
 		found=True
@@ -27,5 +39,12 @@ while not found:
 		print("think higher")
 	else :
 		print("think lower")
-	attempts+=1
+	attempts-=1
+	print("remaining attempts ",attempts)
 
+if found:
+	print("well done , random number was ",number)
+	print("challenged for ",max_attempts," , achieved in ",max_attempts-attempts)
+	print("percent of success",(1/max_attempts-attempts)*100)
+else:
+	print("unlucky, number was ",number)
