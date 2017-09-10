@@ -7,3 +7,8 @@ Kafka/.classpath
 .settings/*
 
 .springBeans
+JavaTests/.idea/
+JavaTests/out/
+Kafka/.idea/
+*.iml
+*.prefs
