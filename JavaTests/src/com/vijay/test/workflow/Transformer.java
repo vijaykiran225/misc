@@ -1,15 +1,13 @@
 package com.vijay.test.workflow;
 
-import java.util.Collections;
-import java.util.Optional;
-import java.util.function.Function;
 import java.util.function.IntUnaryOperator;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 /**
  * Created by Vijay kiran on 020 20-Aug-2017.
  */
-public enum Constant {
+public enum Transformer {
 
     test1000(1, 1000, e -> e * 3,"v1"),
     test1001(1, 1001, e -> e * 9,"v1"),
@@ -105,22 +103,23 @@ public enum Constant {
     test9007(9, 9007, e -> e * 9,"v1"),
     test9008(9, 9008, e -> e * 5,"v1"),
     test9009(9, 9009, e -> e * 2,"v1"),
-    IDENTITY_NO_OPERATION(0,0,e->0 ,"v8");
+    IDENTITY(0,0,IntUnaryOperator.identity() ,"v8");
 
-    private Constant(int workflow, int fieldId, IntUnaryOperator operation,String target) {
+    private Transformer(int workflow, int fieldId, IntUnaryOperator operation, String target) {
         this.fieldId = fieldId;
         this.workflow = workflow;
         this.operation = operation;
         this.targetKey=target;
     }
 
-    public static Holder getConstant(final Holder data) {
+    public static Holder apply(final Holder data) {
 
-        Constant constant = Stream.of(Constant.values())
-                .filter(e -> e.fieldId == data.getField())
-                .filter(e -> e.workflow == data.getWorkflow())
+        Predicate<Transformer> fieldMatch = e -> e.fieldId == data.getField();
+        Predicate<Transformer> workflowMatch = e -> e.workflow == data.getWorkflow();
+        Transformer constant = Stream.of(Transformer.values())
+                .filter(fieldMatch.and(workflowMatch))
                 .findAny()
-                .orElseGet(() -> Constant.IDENTITY_NO_OPERATION);
+                .orElseGet(() -> Transformer.IDENTITY);
 
         return new Holder(constant.getOperation().applyAsInt(data.getFieldValue())
                 ,constant.getTargetKey());

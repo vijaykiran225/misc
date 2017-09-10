@@ -18,6 +18,12 @@ public class Holder{
         this.fieldValue = fieldValue;
     }
 
+    public Holder(int transformedValue, String targetKey) {
+        this.transformedValue=transformedValue;
+        this.target=targetKey;
+
+    }
+
     public int getTransformedValue() {
         return transformedValue;
     }
@@ -34,11 +40,7 @@ public class Holder{
         this.target = target;
     }
 
-    public Holder(int transformedValue, String targetKey) {
-        this.transformedValue=transformedValue;
-        this.target=targetKey;
 
-    }
 
     public int getWorkflow() {
         return workflow;

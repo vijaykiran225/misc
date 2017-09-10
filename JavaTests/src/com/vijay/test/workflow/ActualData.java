@@ -5,42 +5,42 @@ package com.vijay.test.workflow;
  */
 
 class ActualDataBuilder {
-    ActualData data=new ActualData();
+    private ActualData data=new ActualData();
 
     private ActualDataBuilder(){
 
     }
 
-    public static ActualDataBuilder getNewInstance(){
+    static ActualDataBuilder getNewInstance(){
         ActualDataBuilder builder=new ActualDataBuilder();
         return builder;
     }
 
-    public ActualDataBuilder withV1(int val1){
+    private ActualDataBuilder withV1(int val1){
         this.data.setVal1(val1);
         return this;
     }
-    public ActualDataBuilder withV2(int val2){
+    private ActualDataBuilder withV2(int val2){
         this.data.setVal2(val2);
         return this;
     }
-    public ActualDataBuilder withV3(int val3){
+    private ActualDataBuilder withV3(int val3){
         this.data.setVal3(val3);
         return this;
     }
-    public ActualDataBuilder withV4(int val4){
+    private ActualDataBuilder withV4(int val4){
         this.data.setVal4(val4);
         return this;
     }
-    public ActualDataBuilder withV5(int val5){
+    private ActualDataBuilder withV5(int val5){
         this.data.setVal5(val5);
         return this;
     }
-    public ActualData build(){
+    ActualData build(){
         return this.data;
     }
 
-    public ActualDataBuilder with(Holder data) {
+    ActualDataBuilder with(Holder data) {
         if(data.getTarget().equals("v5")){
             this.withV5(data.getTransformedValue());
         }
@@ -58,15 +58,28 @@ class ActualDataBuilder {
         }
         return this;
     }
+
+    /**
+     * combiner logic for collector
+     * @param anotherBuilder
+     * @return merged response builder
+     */
+    ActualDataBuilder combineWith(ActualDataBuilder anotherBuilder){
+        if(this.data.equals(anotherBuilder.data)){
+
+        }
+
+        return this;
+    }
 }
 
 public class ActualData{
 
-    int val1;
-    int val2;
-    int val3;
-    int val4;
-    int val5;
+    private int val1;
+    private int val2;
+    private int val3;
+    private int val4;
+    private int val5;
 
     @Override
     public String toString() {
@@ -79,7 +92,7 @@ public class ActualData{
                 '}';
     }
 
-    public ActualData() {
+    ActualData() {
     }
 
     public ActualData(int val1, int val2, int val3, int val4, int val5) {
@@ -94,7 +107,7 @@ public class ActualData{
         return val1;
     }
 
-    public void setVal1(int val1) {
+    void setVal1(int val1) {
         this.val1 = val1;
     }
 
@@ -102,7 +115,7 @@ public class ActualData{
         return val2;
     }
 
-    public void setVal2(int val2) {
+    void setVal2(int val2) {
         this.val2 = val2;
     }
 
@@ -110,7 +123,7 @@ public class ActualData{
         return val3;
     }
 
-    public void setVal3(int val3) {
+    void setVal3(int val3) {
         this.val3 = val3;
     }
 
@@ -118,7 +131,7 @@ public class ActualData{
         return val4;
     }
 
-    public void setVal4(int val4) {
+    void setVal4(int val4) {
         this.val4 = val4;
     }
 
@@ -126,7 +139,7 @@ public class ActualData{
         return val5;
     }
 
-    public void setVal5(int val5) {
+    void setVal5(int val5) {
         this.val5 = val5;
     }
 }

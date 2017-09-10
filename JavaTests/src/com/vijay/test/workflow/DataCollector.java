@@ -11,7 +11,7 @@ import java.util.stream.Collector;
 /**
  * Created by Vijay kiran on 020 20-Aug-2017.
  */
-public class MyCollector implements Collector<Holder,ActualDataBuilder,ActualData>{
+public class DataCollector implements Collector<Holder,ActualDataBuilder,ActualData>{
 
     @Override
     public Supplier<ActualDataBuilder> supplier() {
@@ -25,7 +25,7 @@ public class MyCollector implements Collector<Holder,ActualDataBuilder,ActualDat
 
     @Override
     public BinaryOperator<ActualDataBuilder> combiner() {
-        return (actualDataBuilder, actualDataBuilder2) -> { return actualDataBuilder;};
+        return (actualDataBuilder, actualDataBuilder2) -> actualDataBuilder.combineWith(actualDataBuilder2);
     }
 
     @Override

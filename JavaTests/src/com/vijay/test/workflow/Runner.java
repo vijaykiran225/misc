@@ -15,8 +15,9 @@ public class Runner {
                 new Holder(4,4008,678)};
 
         ActualData x = Arrays.stream(data)
-                .map(Constant::getConstant)
-                .collect(new MyCollector());
+                .map(Transformer::apply)
+                .collect(new DataCollector());
+
         System.out.print(x);
     }
 }
